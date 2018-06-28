@@ -3,7 +3,7 @@ version: '2'
 
 services:
   kafka:
-    image: wurstmeister/kafka:1.0.0
+    image: wurstmeister/kafka:1.1.0
     depends_on:
       - zookeeper
     hostname: kafka
@@ -41,7 +41,7 @@ services:
       - "12201:12201"
 
   forwarder:
-    image: screamingudder/forward-epics-to-kafka:jl235a
+    image: screamingudder/forwarder:a09ccca
     depends_on:
       - kafka
     network_mode: "host"
@@ -51,7 +51,7 @@ services:
       CONFIG_FILE: "/forwarder_config.json"
 
   file-writer:
-    image: screamingudder/kafka-to-nexus:alksh8
+    image: screamingudder/file-writer:c9cfb68
     depends_on:
       - graylog
       - kafka
