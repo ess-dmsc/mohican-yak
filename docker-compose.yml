@@ -1,5 +1,4 @@
-﻿
-version: '2'
+﻿version: '2'
 
 services:
   kafka:
@@ -43,6 +42,7 @@ services:
   forwarder:
     image: screamingudder/forwarder:a09ccca
     depends_on:
+      - graylog
       - kafka
     network_mode: "host"
     volumes:
