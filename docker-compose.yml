@@ -23,8 +23,25 @@ services:
     image: zookeeper:3.4
     restart: unless-stopped
 
+  manager:
+    image: sheepkiller/kafka-manager:alpine
+    depends_on:
+      - zookeeper
+      - kafka
+    ports:
+      - "9000:9000"
+    environment:
+      ZK_HOSTS: zookeeper:2181
+
+  # Default logging is user: admin, pass:admin
+  graylog:
+    image: swcc/docker-graylog2
+    ports:
+      - "9001:9000"
+      - "12201:12201"
+
   forwarder:
-    image: ess-dmsc/forward-epics-to-kafka:0.0.0
+    image: screamingudder/forward-epics-to-kafka:jl235a
     depends_on:
       - kafka
     network_mode: "host"
@@ -32,3 +49,17 @@ services:
       - ./forwarder_config.json:/forwarder_config.json
     environment:
       CONFIG_FILE: "/forwarder_config.json"
+
+  file-writer:
+    image: screamingudder/kafka-to-nexus:alksh8
+    depends_on:
+      - graylog
+      - kafka
+    network_mode: "host"
+    environment:
+      COMMAND_URI: "//localhost:9092/TEST_writerCommand"
+      STATUS_URI: "//localhost:9092/TEST_writerStatus"
+      KAFKA_BROKER: "localhost"
+      GRAYLOG_ADDRESS: "localhost:12201"
+    volumes:
+      - ./output-files:/output-files
