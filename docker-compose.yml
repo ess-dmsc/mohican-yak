@@ -22,27 +22,26 @@ services:
     image: zookeeper:3.4
     restart: unless-stopped
 
-  manager:
-    image: sheepkiller/kafka-manager:alpine
-    depends_on:
-      - zookeeper
-      - kafka
-    ports:
-      - "9000:9000"
-    environment:
-      ZK_HOSTS: zookeeper:2181
+  #manager:
+  #  image: sheepkiller/kafka-manager:alpine
+  #  depends_on:
+  #    - zookeeper
+  #    - kafka
+  #  ports:
+  #    - "9000:9000"
+  #  environment:
+  #    ZK_HOSTS: zookeeper:2181
 
   # Default logging is user: admin, pass:admin
-  graylog:
-    image: swcc/docker-graylog2
-    ports:
-      - "9001:9000"
-      - "12201:12201"
+  #graylog:
+  #  image: swcc/docker-graylog2
+  #  ports:
+  #    - "9001:9000"
+  #    - "12201:12201"
 
   forwarder:
     image: screamingudder/forwarder:a09ccca
     depends_on:
-      - graylog
       - kafka
     network_mode: "host"
     volumes:
@@ -52,9 +51,8 @@ services:
       FAKE_PV_PERIOD_MS: "1000"
 
   file-writer:
-    image: screamingudder/file-writer:c9cfb68
+    image: screamingudder/file-writer:135e6f5
     depends_on:
-      - graylog
       - kafka
     network_mode: "host"
     environment:
@@ -62,5 +60,6 @@ services:
       STATUS_URI: "//localhost:9092/TEST_writerStatus"
       KAFKA_BROKER: "localhost"
       GRAYLOG_ADDRESS: "localhost:12201"
+      LOG_LEVEL: "6"
     volumes:
       - ./output-files:/output-files

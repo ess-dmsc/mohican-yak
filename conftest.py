@@ -61,6 +61,7 @@ def test_environment(request):
     project = project_from_options(os.path.dirname(__file__), options)
     cmd = TopLevelCommand(project)
     print("Running docker-compose up", flush=True)
+    cmd.pull(options)
     cmd.up(options)
     print("\nFinished docker-compose up\n", flush=True)
     wait_until_kafka_ready(cmd, options)

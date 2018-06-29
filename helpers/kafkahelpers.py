@@ -1,4 +1,4 @@
-from confluent_kafka import Consumer
+from confluent_kafka import Consumer, Producer
 import uuid
 
 
@@ -17,5 +17,11 @@ def poll_for_valid_message(consumer):
 def create_consumer():
     consumer_config = {'bootstrap.servers': 'localhost:9092', 'default.topic.config': {'auto.offset.reset': 'smallest'},
                        'group.id': uuid.uuid4()}
-    cons = Consumer(**consumer_config)
-    return cons
+    consumer = Consumer(**consumer_config)
+    return consumer
+
+
+def create_producer():
+    producer_config = {'bootstrap.servers': 'localhost:9092'}
+    producer = Producer(**producer_config)
+    return producer
