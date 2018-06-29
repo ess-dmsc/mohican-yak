@@ -21,7 +21,8 @@
             "stream": {
               "topic": "TEST_metadata",
               "source": "FakePV",
-              "module": "f142"
+              "writer_module": "f142",
+              "type": "double"
             }
           }
         ]

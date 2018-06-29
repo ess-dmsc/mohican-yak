@@ -51,7 +51,7 @@ services:
       FAKE_PV_PERIOD_MS: "1000"
 
   file-writer:
-    image: screamingudder/file-writer:135e6f5
+    image: screamingudder/file-writer:37a879f
     depends_on:
       - kafka
     network_mode: "host"
