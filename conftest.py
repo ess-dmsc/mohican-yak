@@ -44,7 +44,8 @@ common_options = {"--no-deps": False,
                   "--follow": False,
                   "--timestamps": False,
                   "--tail": "all",
-                  "--detach": True
+                  "--detach": True,
+                  "--build": False
                   }
 
 

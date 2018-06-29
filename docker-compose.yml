@@ -49,6 +49,7 @@ services:
       - ./forwarder_config.json:/forwarder_config.json
     environment:
       CONFIG_FILE: "/forwarder_config.json"
+      FAKE_PV_PERIOD_MS: "1000"
 
   file-writer:
     image: screamingudder/file-writer:c9cfb68
