@@ -34,5 +34,6 @@
   },
   "cmd": "FileWriter_new",
   "job_id": "unique-identifier",
-  "broker": "localhost:9092"
+  "broker": "localhost:9092",
+  "use_hdf_swmr": false
 }

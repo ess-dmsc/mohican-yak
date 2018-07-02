@@ -11,17 +11,17 @@ def send_writer_command(filepath, producer):
 def test_data_reaches_file(test_environment):
     producer = create_producer()
 
-    sleep(20)
+    sleep(10)
 
     # Start file writing
     send_writer_command("commands/example-json-command.json", producer)
     producer.flush()
 
-    sleep(20)
+    # Give it some time to accumulate data
+    sleep(10)
 
     # Stop file writing
     send_writer_command("commands/stop-command.json", producer)
+    sleep(1)
     send_writer_command("commands/writer-exit.json", producer)
     producer.flush()
-
-    sleep(10)
