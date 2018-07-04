@@ -25,3 +25,6 @@ def test_data_reaches_file(test_environment):
     sleep(1)
     send_writer_command("commands/writer-exit.json", producer)
     producer.flush()
+
+    # Allow time for the file writing to complete
+    sleep(5)

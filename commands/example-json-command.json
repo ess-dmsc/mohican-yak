@@ -15,17 +15,43 @@
             "attributes": {
               "units": "Kelvin"
             }
-          },
-          {
-            "type": "stream",
-            "stream": {
-              "topic": "TEST_metadata",
-              "source": "FakePV",
-              "writer_module": "f142",
-              "type": "double"
-            }
           }
         ]
+      },
+      {
+        "type": "group",
+        "name": "logs",
+        "attributes": {
+          "NX_class": "NXlog"
+        },
+        "children": [
+            {
+              "type": "stream",
+              "stream": {
+                "topic": "TEST_metadata",
+                "source": "FakePV",
+                "writer_module": "f142",
+                "type": "double"
+              }
+            }
+          ]
+      },
+      {
+        "type": "group",
+        "name": "detector_1_events",
+        "attributes": {
+          "NX_class": "NXevent_data"
+        },
+        "children": [
+            {
+              "type": "stream",
+              "stream": {
+                "topic": "TEST_events",
+                "source": "TEST",
+                "writer_module": "ev42"
+              }
+            }
+          ]
       }
     ]
   },
