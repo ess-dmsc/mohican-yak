@@ -6,7 +6,6 @@ services:
     depends_on:
       - zookeeper
     hostname: kafka
-    restart: unless-stopped
     ports:
       - "9092:9092"
     environment:
@@ -20,12 +19,10 @@ services:
 
   zookeeper:
     image: zookeeper:3.4
-    restart: unless-stopped
 
   #manager:
   #  image: sheepkiller/kafka-manager:alpine
   #  depends_on:
-  #    - zookeeper
   #    - kafka
   #  ports:
   #    - "9000:9000"
@@ -45,21 +42,32 @@ services:
       - kafka
     network_mode: "host"
     volumes:
-      - ./forwarder_config.json:/forwarder_config.json
+      - ./config-files/forwarder_config.json:/forwarder_config.json
     environment:
       CONFIG_FILE: "/forwarder_config.json"
       FAKE_PV_PERIOD_MS: "1000"
 
-  file-writer:
-    image: screamingudder/file-writer:37a879f
+  event-producer:
+    image: screamingudder/nexus-streamer:7db9058
     depends_on:
       - kafka
     network_mode: "host"
     environment:
-      COMMAND_URI: "//localhost:9092/TEST_writerCommand"
-      STATUS_URI: "//localhost:9092/TEST_writerStatus"
+      CONFIG_FILE: "/streamer_config.ini"
       KAFKA_BROKER: "localhost"
-      GRAYLOG_ADDRESS: "localhost:12201"
-      LOG_LEVEL: "6"
     volumes:
-      - ./output-files:/output-files
+      - ./config-files/streamer_config.ini:/streamer_config.ini
+
+#  file-writer:
+#    image: screamingudder/file-writer:37a879f
+#    depends_on:
+#      - kafka
+#    network_mode: "host"
+#    environment:
+#      COMMAND_URI: "//localhost:9092/TEST_writerCommand"
+#      STATUS_URI: "//localhost:9092/TEST_writerStatus"
+#      KAFKA_BROKER: "localhost"
+#      GRAYLOG_ADDRESS: "localhost:12201"
+#      LOG_LEVEL: "6"
+#    volumes:
+#      - ./output-files:/output-files
