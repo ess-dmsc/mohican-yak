@@ -9,8 +9,13 @@ def send_writer_command(filepath, producer):
 
 
 def test_data_reaches_file(test_environment):
-    producer = create_producer()
+    """
+    This 'test' performs the job which NICOS will do in the production
+    system at the ESS; sending the 'command' messages for the file writer.
 
+    :param test_environment: This is the test fixture which launches the containers
+    """
+    producer = create_producer()
     sleep(10)
 
     # Start file writing

@@ -48,7 +48,7 @@ services:
       FAKE_PV_PERIOD_MS: "1000"
 
   event-producer:
-    image: screamingudder/nexus-streamer:1e3c7fc
+    image: screamingudder/nexus-streamer:7d2979e
     depends_on:
       - kafka
     network_mode: "host"
@@ -58,16 +58,16 @@ services:
     volumes:
       - ./config-files/streamer_config.ini:/streamer_config.ini
 
-#  file-writer:
-#    image: screamingudder/file-writer:37a879f
-#    depends_on:
-#      - kafka
-#    network_mode: "host"
-#    environment:
-#      COMMAND_URI: "//localhost:9092/TEST_writerCommand"
-#      STATUS_URI: "//localhost:9092/TEST_writerStatus"
-#      KAFKA_BROKER: "localhost"
-#      GRAYLOG_ADDRESS: "localhost:12201"
-#      LOG_LEVEL: "6"
-#    volumes:
-#      - ./output-files:/output-files
+  file-writer:
+    image: screamingudder/file-writer:523505f
+    depends_on:
+      - kafka
+    network_mode: "host"
+    environment:
+      COMMAND_URI: "//localhost:9092/TEST_writerCommand"
+      STATUS_URI: "//localhost:9092/TEST_writerStatus"
+      KAFKA_BROKER: "localhost"
+      GRAYLOG_ADDRESS: "localhost:12201"
+      LOG_LEVEL: "6"
+    volumes:
+      - ./output-files:/output-files

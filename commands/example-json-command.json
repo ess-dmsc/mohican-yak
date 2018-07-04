@@ -47,7 +47,7 @@
               "type": "stream",
               "stream": {
                 "topic": "TEST_events",
-                "source": "TEST",
+                "source": "NeXus-Streamer",
                 "writer_module": "ev42"
               }
             }
