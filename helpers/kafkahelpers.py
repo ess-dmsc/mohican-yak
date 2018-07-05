@@ -15,13 +15,15 @@ def poll_for_valid_message(consumer):
 
 
 def create_consumer():
-    consumer_config = {'bootstrap.servers': 'localhost:9092', 'default.topic.config': {'auto.offset.reset': 'smallest'},
+    consumer_config = {'bootstrap.servers': 'localhost:9092',
+                       'default.topic.config': {'auto.offset.reset': 'smallest'},
                        'group.id': uuid.uuid4()}
     consumer = Consumer(**consumer_config)
     return consumer
 
 
 def create_producer():
-    producer_config = {'bootstrap.servers': 'localhost:9092'}
+    producer_config = {'bootstrap.servers': 'localhost:9092',
+                       'message.max.bytes': '20000000'}
     producer = Producer(**producer_config)
     return producer

@@ -27,7 +27,7 @@ def test_data_reaches_file(test_environment):
 
     # Stop file writing
     send_writer_command("commands/stop-command.json", producer)
-    sleep(1)
+    sleep(5)
     send_writer_command("commands/writer-exit.json", producer)
     producer.flush()
 
