@@ -1,10 +1,18 @@
 from helpers.kafkahelpers import create_producer
 from time import sleep
+from datetime import datetime
+
+
+def unix_time_milliseconds(dt):
+    epoch = datetime.utcfromtimestamp(0)
+    return (dt - epoch).total_seconds() * 1000.0
 
 
 def send_writer_command(filepath, producer):
     with open(filepath, "r") as cmd_file:
         data = cmd_file.read().replace('\n', '')
+        start_time = str(int(unix_time_milliseconds(datetime.utcnow())))
+        data = data.replace('STARTTIME', start_time)
     producer.produce("TEST_writerCommand", data)
 
 
@@ -16,7 +24,7 @@ def test_data_reaches_file(test_environment):
     :param test_environment: This is the test fixture which launches the containers
     """
     producer = create_producer()
-    sleep(10)
+    sleep(5)
 
     # Start file writing
     send_writer_command("commands/example-json-command.json", producer)
