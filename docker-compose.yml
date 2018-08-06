@@ -37,7 +37,7 @@ services:
   #    - "12201:12201"
 
   forwarder:
-    image: screamingudder/forwarder:a09ccca
+    image: screamingudder/forwarder:cc86f0a
     depends_on:
       - kafka
     network_mode: "host"
