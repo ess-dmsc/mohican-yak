@@ -59,15 +59,13 @@ services:
       - ./config-files/streamer_config.ini:/streamer_config.ini
 
   file-writer:
-    image: screamingudder/file-writer:523505f
+    image: screamingudder/file-writer:7fb8205
     depends_on:
       - kafka
     network_mode: "host"
     environment:
-      COMMAND_URI: "//localhost:9092/TEST_writerCommand"
-      STATUS_URI: "//localhost:9092/TEST_writerStatus"
+      CONFIG_FILE: "/file_writer_config.json"
       KAFKA_BROKER: "localhost"
-      GRAYLOG_ADDRESS: "localhost:12201"
-      LOG_LEVEL: "6"
     volumes:
+      - ./config-files/file_writer_config.json:/file_writer_config.json
       - ./output-files:/output-files
