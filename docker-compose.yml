@@ -48,7 +48,7 @@ services:
       FAKE_PV_PERIOD_MS: "1000"
 
   event-producer:
-    image: screamingudder/nexus-streamer:9d8e39b
+    image: screamingudder/nexus-streamer:b9a5df7
     depends_on:
       - kafka
     network_mode: "host"
@@ -59,7 +59,7 @@ services:
       - ./config-files/streamer_config.ini:/streamer_config.ini
 
   file-writer:
-    image: screamingudder/file-writer:7fb8205
+    image: screamingudder/file-writer:bc3acdf
     depends_on:
       - kafka
     network_mode: "host"
